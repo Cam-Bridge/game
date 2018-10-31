@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <title>比赛成绩</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="/static/admin/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="/static/admin/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+    <link href="/static/admin/css/animate.css" rel="stylesheet">
+    <link href="/static/admin/css/style.css?v=4.1.0" rel="stylesheet">
+
+</head>
+
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInRight" >
+    <div class="row">
+        <div class="col-sm-3"></div>
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>比赛成绩</h5>
+                </div>
+                <div class="ibox-content">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">比赛名称：</label>
+                        <div class="col-sm-8">
+                            <select id="mess_id" name="mess_id" class="col-sm-8">
+                                <option value="0">--请选择--</option>
+                                {foreach $mess as $key => $me}
+                                <option value="{$me.id}">{$me.game_name} - {$me.game_stage} - {$me.game_project} -
+                                    {$me.user_A}VS{$me.user_B}
+                                </option>
+                                {/foreach}
+                            </select>
+                        </div>
+                        <br><br><br>
+                        <div class="row cl">
+                            <div class="form-group">
+                                <div class="col-sm-8 col-sm-offset-4">
+                                    <button id="btn" class="btn btn-primary" type="submit">提交</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="wrapper wrapper-content animated fadeInRight">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="ibox float-e-margins">
+                                    <div class="ibox-content">
+
+                                        <table class="table table-striped table-bordered table-hover dataTables-example">
+                                            <thead>
+                                            <tr>
+                                                <th>编号</th>
+                                                <th>比赛时间</th>
+                                                <th>比赛名称</th>
+                                                <th class="center">比赛项目</th>
+                                                <th class="center">比赛阶段</th>
+                                                <th>运动员A</th>
+                                                <th>运动员B</th>
+                                                <th>大比分</th>
+                                                <th>小比分</th>
+                                                <th>状态</th>
+                                                <th>是否上线</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody id="tb">
+
+                                            </tbody>
+                                        </table>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 全局js -->
+                        <script src="/static/admin/js/jquery.min.js?v=2.1.4"></script>
+                        <script src="/static/admin/js/bootstrap.min.js?v=3.3.6"></script>
+
+
+                        <script src="/static/admin/js/plugins/jeditable/jquery.jeditable.js"></script>
+
+                        <!-- Data Tables -->
+                        <script src="/static/admin/js/plugins/dataTables/jquery.dataTables.js"></script>
+                        <script src="/static/admin/js/plugins/dataTables/dataTables.bootstrap.js"></script>
+
+                        <!-- 自定义js -->
+                        <script src="/static/admin/js/content.js?v=1.0.0"></script>
+
+
+                        <!-- Page-Level Scripts -->
+                        <script>
+                            $(document).ready(function () {
+                                $('.dataTables-example').dataTable();
+
+                                /* Init DataTables */
+                                var oTable = $('#editable').dataTable();
+
+                                /* Apply the jEditable handlers to the table */
+                                oTable.$('td').editable('../example_ajax.php', {
+                                    "callback": function (sValue, y) {
+                                        var aPos = oTable.fnGetPosition(this);
+                                        oTable.fnUpdate(sValue, aPos[0], aPos[1]);
+                                    },
+                                    "submitdata": function (value, settings) {
+                                        return {
+                                            "row_id": this.parentNode.getAttribute('id'),
+                                            "column": oTable.fnGetPosition(this)[2]
+                                        };
+                                    },
+
+                                    "width": "90%",
+                                    "height": "100%"
+                                });
+
+
+                            });
+
+                            function fnClickAddRow() {
+                                $('#editable').dataTable().fnAddData([
+                                    "Custom row",
+                                    "New row",
+                                    "New row",
+                                    "New row",
+                                    "New row"]);
+
+                            }
+                        </script>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+</body>
+<!-- 全局js -->
+<script src="/static/admin/js/jquery.min.js?v=2.1.4"></script>
+<script src="/static/admin/js/bootstrap.min.js?v=3.3.6"></script>
+
+<!-- 自定义js -->
+<script src="/static/admin/js/content.js?v=1.0.0"></script>
+
+<!-- jQuery Validation plugin javascript-->
+<script src="/static/admin/js/plugins/validate/jquery.validate.min.js"></script>
+<script src="/static/admin/js/plugins/validate/messages_zh.min.js"></script>
+
+<script src="/static/admin/js/demo/form-validate-demo.js"></script>
+<script>
+    $('#btn').click(function () {
+        $.ajax({
+            type: 'post',
+            url: 'score',
+            data: {'mess_id': $('#mess_id').val()},
+            dataType:'json',
+            success: function (data) {
+                //console.log(${data.id});
+                //console.log(typeof data);
+                var h = `'<tr class="gradeX">' + ' <td>${data.id}</td>' + '<td>${data.game_date}</td>' + '<td>${data.game_name}</td>' + '<td class="center">${data.game_project}</td>' + '<td class="center">${data.game_stage}</td>' + '<td>${data.user_a}</td>' + '<td>${data.user_b}</td>' + '<td>${data.big}</td>' + '<td>${data.small}</td>'`
+                if (`${data.show} == 1`) {
+                    h += '<td>是</td>';
+                } else {
+                    h += '<td>否</td>';
+                }
+                h += ' <td><a href="amdin/game/up?id=${list.id}">上线</a>/<a href="admin/game/down?id=${list.id}">下线</a></td>' + '</tr>';
+                //console.log(h);
+                $('#tb').append(h);
+            }
+        });
+    });
+</script>
+
+</html>

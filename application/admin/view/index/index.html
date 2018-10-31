@@ -1,0 +1,103 @@
+{include file='./layout/main'}
+</head>
+
+<body class="fixed-sidebar full-height-layout gray-bg" style="overflow:hidden">
+<div id="wrapper">
+    <!--左侧导航开始-->
+    <nav class="navbar-default navbar-static-side" role="navigation">
+        <div class="nav-close"><i class="fa fa-times-circle"></i>
+        </div>
+        <div class="sidebar-collapse">
+            <ul class="nav" id="side-menu">
+                <li class="nav-header">
+                    <div class="dropdown profile-element">
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                                <span class="clear">
+                                    <span class="block m-t-xs" style="font-size:20px;">
+                                        <strong class="font-bold">赛事信息管理平台</strong>
+                                    </span>
+                                </span>
+                        </a>
+                    </div>
+                    <div class="logo-element">北京体育大学赛事信息管理平台
+                    </div>
+                </li>
+                <li>
+                    <a href="#">
+                        <span class="nav-label">赛事信息管理</span>
+                        <span class="fa arrow"></span>
+                    </a>
+                    <ul class="nav nav-second-level">
+                        <li>
+                            <a class="J_menuItem" href="{:url('admin/information/index')}">赛事信息</a>
+                        </li>
+                        <li>
+                            <a class="J_menuItem" href="{:url('admin/information/create')}">添加赛事</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">
+                        <span class="nav-label">远动员信息管理</span>
+                        <span class="fa arrow"></span>
+                    </a>
+                    <ul class="nav nav-second-level">
+                        <li>
+                            <a class="J_menuItem" href="{:url('admin/player/index')}">运动员信息</a>
+                        </li>
+                        <li>
+                            <a class="J_menuItem" href="{:url('admin/player/create')}">添加运动员</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#"><span class="nav-label">比赛详情</span><span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        <li><a class="J_menuItem" href="{:url('admin/game/create')}">比赛数据添加(局)</a>
+                        </li>
+                        <li><a class="J_menuItem" href="{:url('admin/game/index')}">比赛数据列表</a>
+                        </li>
+                        <li><a class="J_menuItem" href="{:url('admin/game/adds')}">批量添加数据</a>
+                        </li>
+                        <li><a class="J_menuItem" href="{:url('admin/game/cha')}">比赛成绩(场)</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <!--左侧导航结束-->
+    <!--右侧部分开始-->
+    <div id="page-wrapper" class="gray-bg dashbard-1">
+        <div class="row border-bottom">
+            <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
+                <div class="navbar-header"><a class="navbar-minimalize minimalize-styl-2 btn btn-info " href="#"><i
+                        class="fa fa-bars"></i> </a>
+                    <form role="search" class="navbar-form-custom" method="post" action="search_results.html">
+                        <div class="form-group">
+                            <input type="text" placeholder="请输入您需要查找的内容 …" class="form-control" name="top-search"
+                                   id="top-search">
+                        </div>
+                    </form>
+                </div>
+            </nav>
+        </div>
+        <div class="row J_mainContent" id="content-main">
+            <iframe id="J_iframe" width="100%" height="100%" src="{:url('admin/information/index')}" frameborder="0"
+                    data-id="index_v1.html" seamless></iframe>
+        </div>
+    </div>
+    <!--右侧部分结束-->
+</div>
+
+
+<!-- 自定义js -->
+<script src="/static/admin/js/hAdmin.js?v=4.1.0"></script>
+<script type="text/javascript" src="/static/admin/js/index.js"></script>
+
+<!-- 第三方插件 -->
+<script src="/static/admin/js/plugins/pace/pace.min.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <title>修改运动员信息</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+
+    <link rel="shortcut icon" href="favicon.ico"> <link href="/static/admin/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="/static/admin/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+    <link href="/static/admin/css/animate.css" rel="stylesheet">
+    <link href="/static/admin/css/style.css?v=4.1.0" rel="stylesheet">
+
+</head>
+
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-8">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>修改运动员信息</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <form class="form-horizontal m-t" id="signupForm" action="{:url('admin/player/update',['id'=>$res.id])}" method="post">
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">姓名：</label>
+                                <div class="col-sm-8">
+                                    <input name="user_name" class="form-control" type="text" value="{$res.user_name}">
+                            </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">性别：</label>
+                                <div class="col-sm-8">
+                                    <input  name="sex" type="radio" value="男" {switch $res.sex} {case 男} checked{/case}{/switch}>男
+                                    <span>&nbsp&nbsp&nbsp</span>
+                                    <input  name="sex" type="radio" value="女" {switch $res.sex} {case 女} checked{/case}{/switch}>女
+
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">出生年月：</label>
+                                <div class="col-sm-8">
+                                    <input id="age" name="age" class="form-control" type="text" aria-required="true" aria-invalid="true" class="error" value="{$res.age}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">国籍：</label>
+                                <div class="col-sm-8">
+                                    <input id="state" name="state" class="form-control" type="text" value="{$res.state}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">执拍手：</label>
+                                <div class="col-sm-8">
+                                    <input name="hand" type="radio" value="右手" {if $res.hand == '右手'} checked {/if} >右手
+                                    <input name="hand" type="radio" value="左手" {if $res.hand == '右手'} checked {/if} >左手
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">直横拍：</label>
+                                <div class="col-sm-8">
+                                    <input name="bat" type="radio" value="直拍" {if $res.bat == '直拍'} checked {/if} >直拍
+                                    <input name="bat" type="radio" value="横拍" {if $res.bat == '横拍'} checked {/if} >横拍
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">打法：</label>
+                                <div class="col-sm-8">
+                                    <input name="play" type="radio" value="进攻型" {if $res.play == '进攻型'} checked {/if} >进攻型
+                                    <input name="play" type="radio" value="削球型" {if $res.play == '削球型'} checked {/if}>削球型
+                                </div>
+                            </div>
+                            <div class="row cl">
+                                <label class="form-label col-xs-4 col-sm-2">图片上传：</label>
+                                <div class="formControls col-xs-8 col-sm-9">
+                                    <input type="file" class="input-text " placeholder="图片" name="image" id="file" value=""></div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-8 col-sm-offset-3">
+                                    <button class="btn btn-primary" type="submit">提交</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- 全局js -->
+    <script src="/static/admin/js/jquery.min.js?v=2.1.4"></script>
+    <script src="/static/admin/js/bootstrap.min.js?v=3.3.6"></script>
+
+    <!-- 自定义js -->
+    <script src="/static/admin/js/content.js?v=1.0.0"></script>
+
+    <!-- jQuery Validation plugin javascript-->
+    <script src="/static/admin/js/plugins/validate/jquery.validate.min.js"></script>
+    <script src="/static/admin/js/plugins/validate/messages_zh.min.js"></script>
+
+    <script src="/static/admin/js/demo/form-validate-demo.js"></script>
+
+
+
+
+</body>
+ <script type="text/javascript">
+        $("#submit").on("click", function(event) {
+            var form=document.getElementById("form-adv-add");
+            var formdata =new FormData(form);
+            $.ajax({
+                type: "POST",
+                url: "{:url('admin/player/save')}",
+                processData: false,  // 不要处理发送的数据
+                contentType: false,   // 不要设置Content-Type请求头
+                data:formdata,
+                dataType:'json',
+                success: function (data) {
+                    if (data.status == 1) {
+                        alert(data.message);
+                        window.parent.location.reload(); //刷新父页面
+                    } else {
+                        alert(data.message);
+                    }
+                }
+            });
+        })
+</script>
+
+
+
+</html>
