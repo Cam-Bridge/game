@@ -5,7 +5,7 @@ namespace app\admin\controller;
 use think\Controller;
 use think\Request;
 
-class Index extends Controller
+class Financial extends Controller
 {
     /**
      * 显示资源列表
@@ -15,12 +15,8 @@ class Index extends Controller
     public function index()
     {
         //
-        return view('index');
     }
-    public function welcome(){
-    	//
-	    return view('welcome');
-    }
+
     /**
      * 显示创建资源表单页.
      *
@@ -85,5 +81,25 @@ class Index extends Controller
     public function delete($id)
     {
         //
+    }
+    public function upload()
+    {
+        $info = $_POST["myContent"];
+        print_r($info);
+        $callback = $this->G('callback');
+        $info = $this->getLib('QiNiu')->upImage('upfile', 'umeditor');
+        $r = array(
+             "originalName" => $info['file_name'],
+             "name" => $info['qiniu_name'],
+             "url" => $info['qiniu_url'],//不能少
+             "size" => $info['size'],
+             "type" => $info['extension'],
+             "state" => 'SUCCESS' //不能少
+         );
+        if($callback) {
+            echo '<script>'.$callback.'('.json_encode($r).')</script>';
+           } else {
+            echo json_encode($r);
+        }
     }
 }

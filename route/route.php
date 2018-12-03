@@ -11,13 +11,55 @@
 
 
 Route::alias('index','admin/index/index');
+Route::get('admin/index/welcome','admin/index/welcome');
 
 //Route::get('admin/index','admin/index/index');
 //Route::get('admin/information','admin/information/index');
 Route::group('admin',function(){
-    Route::get('player/index','player/index');
-    Route::get('player/create','player/create');
-    Route::get('player/delete','player/delete');
+	Route::get('index/welcome','index/welcome');
+
+    Route::get('carshop/ueditor','carshop/ueditor');
+    Route::get('carshop/question','carshop/question');
+
+
+    Route::get('business/connerSubmit','business/connerSubmit');
+    Route::get('business/fits','business/fits');
+    Route::get('business/connerSubmit','business/connerSubmit');
+
+
+
+    Route::get('card/applyList','card/applyList');
+
+
+
+    Route::get('qualifications/apply','qualifications/apply');
+
+
+
+    Route::get('station/getpoint','station/getpoint');
+
+
+    Route::get('money/classify','money/classify');
+
+    Route::get('tel/sos','tel/sos');
+    Route::get('tel/insurance','tel/insurance');
+
+
+    Route::get('message/message','message/message');
+
+
+    Route::get('active/active','active/active');
+
+
+    Route::get('appointment/appointment','appointment/appointment');
+
+	Route::get('banner/banner','banner/banner');
+	Route::get('banner/bannerAdd','banner/bannerAdd');
+
+
+
+
+
     Route::get('player/edit','player/edit');
     Route::get('player/upload','player/upload');
 
@@ -39,6 +81,9 @@ Route::group('admin',function(){
     Route::get('game/find','game/find');
     Route::get('game/download','game/download');
     Route::get('game/cha','game/cha');
+
+
+
 })->prefix('admin/');
 
 
